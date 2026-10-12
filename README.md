@@ -1,8 +1,8 @@
-name: Deployment
+name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
@@ -12,4 +12,8 @@ jobs:
       name: production
       url: https://ctrlfreaks-ecocycle.floot.app/
     steps:
-      - run: echo "Live at https://ctrlfreaks-ecocycle.floot.app/"
+      - name: Check site is live
+        run: curl --fail --silent --show-error --location https://ctrlfreaks-ecocycle.floot.app/ > /dev/null
+
+      - name: Done
+        run: echo "Deployed to https://ctrlfreaks-ecocycle.floot.app/"
